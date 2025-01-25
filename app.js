@@ -20,5 +20,9 @@ app.use("/",serverStatusRouter);
 import userRouter from './src/routes/user.routes.js'
 app.use("/api/v1/users", userRouter)
 
+// Team Endpoints
+import teamRouter from './src/routes/team.routes.js'
+app.use("/api/v1/teams", teamRouter)
+
 
 export { app }
