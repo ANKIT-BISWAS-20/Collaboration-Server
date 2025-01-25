@@ -40,5 +40,9 @@ app.use("/api/v1/submissions", submissionRouter)
 import commentRouter from './src/routes/comment.routes.js'
 app.use("/api/v1/comments", commentRouter)
 
+// LiveSession Endpoints
+import liveSessionRouter from './src/routes/liveSession.routes.js'
+app.use("/api/v1/live-sessions", liveSessionRouter)
+
 
 export { app }
