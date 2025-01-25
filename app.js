@@ -32,5 +32,9 @@ app.use("/api/v1/materials", materialRouter)
 import taskRouter from './src/routes/task.routes.js'
 app.use("/api/v1/tasks", taskRouter)
 
+// Submission Endpoints
+import submissionRouter from './src/routes/submission.routes.js'
+app.use("/api/v1/submissions", submissionRouter)
+
 
 export { app }

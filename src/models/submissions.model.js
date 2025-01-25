@@ -15,7 +15,7 @@ const submissionSchema = new Schema(
             type: String, 
             required: true
         },
-        teak: {
+        task: {
             type: Schema.Types.ObjectId,
             ref: "Task",
             required: true
