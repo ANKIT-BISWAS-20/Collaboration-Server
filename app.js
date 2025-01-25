@@ -28,5 +28,9 @@ app.use("/api/v1/teams", teamRouter)
 import materialRouter from './src/routes/material.routes.js'
 app.use("/api/v1/materials", materialRouter)
 
+// Task Endpoints
+import taskRouter from './src/routes/task.routes.js'
+app.use("/api/v1/tasks", taskRouter)
+
 
 export { app }
