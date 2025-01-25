@@ -36,5 +36,9 @@ app.use("/api/v1/tasks", taskRouter)
 import submissionRouter from './src/routes/submission.routes.js'
 app.use("/api/v1/submissions", submissionRouter)
 
+// Comment Endpoints
+import commentRouter from './src/routes/comment.routes.js'
+app.use("/api/v1/comments", commentRouter)
+
 
 export { app }
