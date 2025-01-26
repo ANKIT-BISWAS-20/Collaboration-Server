@@ -167,7 +167,7 @@ const markSubmission = asyncHandler(async (req, res) => {
         throw new ApiError(400, "All fields are required")
     }
 
-    if (marks > task.fullmarks) {
+    if (marks <= task.fullmarks) {
         throw new ApiError(400, "Marks cannot be greater than fullmarks")
     }
 
