@@ -458,7 +458,7 @@ const getAnalytics = asyncHandler(async(req, res) => {
         {
             $project: {
                 _id: 0,
-                pendingAssignmentCount: { $subtract: ["$totalTasks", "$totalSubmissions"] }
+                pendingTaskCount: { $subtract: ["$totalTasks", "$totalSubmissions"] }
             }
         }
     ]);
@@ -468,11 +468,11 @@ const getAnalytics = asyncHandler(async(req, res) => {
             200,
             {
                 numberOfTeams:numberTeams,
-                assignmentsAssigned: totalAssignedTasks[0]?.totalAssignments || 0,
-                assignmentsSubmitted:totalSubmittedTasks,
+                tasksAssigned: totalAssignedTasks[0]?.totalTasks || 0,
+                tasksSubmitted:totalSubmittedTasks,
                 upcomingLiveSessions: upcomingLiveSessionsCount[0]?.upcomingLiveSessionsCount || 0,
-                assignmentGraph:task_details,
-                pendingAssignments: pendingTasks[0]?.pendingTaskCount || 0,
+                taskGraph:task_details,
+                pendingTasks: pendingTasks[0]?.pendingTaskCount || 0,
                 accuracy,
             },
             "Analytics fetched successfully"

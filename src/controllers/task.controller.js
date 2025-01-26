@@ -161,7 +161,7 @@ const getAllTask = asyncHandler( async (req, res) => {
       ])
 
     return res.status(200).json(
-        new ApiResponse(200,  assignments, "Tasks Fetched Successfully")
+        new ApiResponse(200,  tasks, "Tasks Fetched Successfully")
     )
 })
 
@@ -214,13 +214,13 @@ const giveTaskFeedback = asyncHandler( async (req, res) => {
 
     const feedback = await Feedback.create({
         provider: userId,
-        type: "assignment",
+        type: "task",
         text: text,
         emotion: emotion,
         understandability: understandability,
         usefulness: usefulness,
         reliability: reliability,
-        forAssignment: assignmentId
+        forTask: taskId
     })
 
     return res.status(201).json(

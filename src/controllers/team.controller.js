@@ -48,7 +48,7 @@ const createTeam = asyncHandler(async (req, res) => {
         title,
         description,
         category,
-        owner: current_user._id,
+        leader: current_user._id,
     })
 
     const createdTeam = await Team.findById(myTeam._id)
@@ -258,7 +258,7 @@ const getMyTeamsForLeader = asyncHandler(async (req, res) => {
         }, {
             '$lookup': {
                 'from': 'users',
-                'localField': 'teamInfo.owner',
+                'localField': 'teamInfo.leader',
                 'foreignField': '_id',
                 'as': 'ownerInfo'
             }
