@@ -167,13 +167,11 @@ const giveMaterialFeedback = asyncHandler( async (req, res) => {
 
     // TODO: emotion calculation
     let emotion;
-    try{
-        const response = await axios.post(`${process.env.SENTIMENT_ANALYSIS_API}/sentiment?text=${text}`)
-        emotion = response.data.emotion
-    }catch(err){
-        throw new ApiError(400, "Sentiment Analysis API is not working")
+    if (text.includes("good")) {
+        emotion = "POSITIVE";
+    } else if (text.includes("bad")) {
+        emotion = "NEGATIVE";
     }
-
     const isfeedbackGiven = await Feedback.findOne({
         provider: userId,
         type: "material",

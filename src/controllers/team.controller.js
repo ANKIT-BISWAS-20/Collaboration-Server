@@ -400,11 +400,10 @@ const giveMemberFeedback = asyncHandler(async (req, res) => {
             new ApiResponse(200, feedback, "Feedback Updated successfully")
         )
     }
-    try {
-        const response = await axios.post(`${process.env.SENTIMENT_ANALYSIS_API}/sentiment?text=${text}`)
-        emotion = response.data.emotion
-    } catch (err) {
-        throw new ApiError(400, "Sentiment Analysis API is not working")
+    if (text.includes("good")) {
+        emotion = "POSITIVE";
+    } else if (text.includes("bad")) {
+        emotion = "NEGATIVE";
     }
     const feedback = await Feedback.create({
         provider: current_user._id,
@@ -755,11 +754,10 @@ const giveTeamFeedback = asyncHandler(async (req, res) => {
 
 
     let emotion;
-    try {
-        const response = await axios.post(`${process.env.SENTIMENT_ANALYSIS_API}/sentiment?text=${text}`)
-        emotion = response.data.emotion
-    } catch (err) {
-        throw new ApiError(400, "Sentiment Analysis API is not working")
+    if (text.includes("good")) {
+        emotion = "POSITIVE";
+    } else if (text.includes("bad")) {
+        emotion = "NEGATIVE";
     }
     if (isany.length > 0) {
         const feedback = await Feedback.findByIdAndUpdate(isany[0]._id, { text: text, emotion: emotion })
