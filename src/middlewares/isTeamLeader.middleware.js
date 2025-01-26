@@ -26,9 +26,9 @@ export const isTeamLeader = asyncHandler(async(req, res, next) => {
             throw new ApiError(401, "Not A leader")
         }
 
-        const teamfilter = await Team.find({_id: teamId, owner: user._id})
+        const teamfilter = await Team.find({_id: teamId, leader: user._id})
         if (teamfilter.length === 0) {
-            throw new ApiError(401, "Not the team owner")
+            throw new ApiError(401, "Not the team leader")
         }
       
 
