@@ -216,9 +216,9 @@ const giveTaskFeedback = asyncHandler( async (req, res) => {
         type: "task",
         text: text,
         emotion: emotion,
-        understandability: understandability,
-        usefulness: usefulness,
-        reliability: reliability,
+        communication: communication,
+        collaboration: collaboration,
+        accountability: accountability,
         forTask: taskId
     })
 

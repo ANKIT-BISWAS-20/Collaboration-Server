@@ -185,7 +185,9 @@ const giveMaterialFeedback = asyncHandler( async (req, res) => {
     const feedback = await Feedback.create({
         provider: userId,
         type: "material",
-        understandability: understandability,
+        communication: communication,
+        collaboration: collaboration,
+        accountability: accountability,
         usefulness: usefulness,
         reliability: reliability,
         text: text,
