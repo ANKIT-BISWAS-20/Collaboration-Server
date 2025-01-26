@@ -28,7 +28,7 @@ export const isTeamLeader = asyncHandler(async(req, res, next) => {
 
         const teamfilter = await Team.find({_id: teamId, owner: user._id})
         if (teamfilter.length === 0) {
-            throw new ApiError(401, "Not the class owner")
+            throw new ApiError(401, "Not the team owner")
         }
       
 

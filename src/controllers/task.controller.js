@@ -25,7 +25,7 @@ const createTask = asyncHandler( async (req, res) => {
     const userId = req.user._id
 
     const current_user = await User.findById(userId)
-    const current_team= await Class.findById(teamId)
+    const current_team= await Team.findById(teamId)
     if (current_team.leader.toString() !== current_user._id.toString()) {
  
         throw new ApiError(400, "You are not leader of this team")
@@ -91,7 +91,7 @@ const deleteTask = asyncHandler( async (req, res) => {
         status: "accepted"
     })
 
-    if (!classMember) {
+    if (!teamMember) {
         throw new ApiError(400, "You are not leader of this team")
     }
 

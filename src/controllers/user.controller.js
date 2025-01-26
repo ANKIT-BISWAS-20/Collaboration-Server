@@ -321,7 +321,7 @@ const getCurrentLeader = asyncHandler(async(req, res) => {
     .json(new ApiResponse(
         200,
         req.user,
-        "Mentor fetched successfully"
+        "Leader fetched successfully"
     ))
 })
 
@@ -356,7 +356,7 @@ const getAnalytics = asyncHandler(async(req, res) => {
         }
     ]);
     const totalSubmittedTasks = await Submission.countDocuments({owner: userId})
-    const upcomingLiveSessionsCount = await ClassMember.aggregate([
+    const upcomingLiveSessionsCount = await TeamMember.aggregate([
         {
             $match: {
                 member: current_user._id,
@@ -467,10 +467,10 @@ const getAnalytics = asyncHandler(async(req, res) => {
         new ApiResponse(
             200,
             {
-                numberOfClasses:numberTeams,
+                numberOfTeams:numberTeams,
                 assignmentsAssigned: totalAssignedTasks[0]?.totalAssignments || 0,
                 assignmentsSubmitted:totalSubmittedTasks,
-                upcomingLiveSessions: upcomingLiveSessionsCount[0]?.upcomingClassesCount || 0,
+                upcomingLiveSessions: upcomingLiveSessionsCount[0]?.upcomingLiveSessionsCount || 0,
                 assignmentGraph:task_details,
                 pendingAssignments: pendingTasks[0]?.pendingTaskCount || 0,
                 accuracy,

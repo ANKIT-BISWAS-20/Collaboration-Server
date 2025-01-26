@@ -26,12 +26,12 @@ const uploadMaterial = asyncHandler( async (req, res) => {
     const current_user = await User.findById(userId)
     const current_team= await Team.findById(teamId)
     if (current_team.leader.toString() !== current_user._id.toString()) {
-        throw new ApiError(400, "You are not leader of this class")
+        throw new ApiError(400, "You are not leader of this team")
     }
 
     const {name, description,type} = req.body
     if (
-        [userId, name, classId, description,type].some((field) => field === "")
+        [userId, name, teamId, description,type].some((field) => field === "")
     ) {
         throw new ApiError(400, "All fields are required")
     }
@@ -61,7 +61,7 @@ const uploadMaterial = asyncHandler( async (req, res) => {
     const createdMaterial = await Material.findById(myMaterial._id)
 
     if (!createdMaterial) {
-        throw new ApiError(500, "Something went wrong while creating the class")
+        throw new ApiError(500, "Something went wrong while creating the team")
     }
 
     return res.status(201).json(
@@ -108,13 +108,13 @@ const getAllMaterials = asyncHandler( async (req, res) => {
     const current_team= await Team.findById(teamId)
     const current_user = await User.findById(userId)
     if (current_team.leader.toString() !== current_user._id.toString()) {
-        const classMember = await TeamMember.findOne({
+        const teamMember = await TeamMember.findOne({
             member: userId,
             team: teamId,
             status: "accepted"
         })
     
-        if (!classMember) {
+        if (!teamMember) {
             throw new ApiError(400, "You are not member of this team")
         }
     }

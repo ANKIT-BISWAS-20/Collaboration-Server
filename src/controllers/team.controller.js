@@ -93,7 +93,7 @@ const updateTeam = asyncHandler(async (req, res) => {
 
     const myTeam = await Team.findById(teamId)
 
-    if (!myClass) {
+    if (!myTeam) {
         throw new ApiError(404, "Team not found")
     }
 
@@ -205,7 +205,7 @@ const acceptJoinInvitation = asyncHandler(async (req, res) => {
     teamMember.status = "accepted"
     teamMember.save()
 
-    const updatedTeamMember = await TeamMember.findById(classMember._id)
+    const updatedTeamMember = await TeamMember.findById(teamMember._id)
 
     return res.status(200).json(
         new ApiResponse(200, updatedTeamMember, "Member accepted successfully")
@@ -269,7 +269,7 @@ const getMyTeamsForLeader = asyncHandler(async (req, res) => {
         }
     ])
     return res.status(200).json(
-        new ApiResponse(200, myClasses, "My Teams fetched successfully")
+        new ApiResponse(200, myTeams, "My Teams fetched successfully")
     )
 })
 
@@ -535,7 +535,7 @@ const getAllTeamsForMember = asyncHandler(async (req, res) => {
         teams = await Team.aggregate([
             {
                 "$match": {
-                    "classname": query
+                    "teamname": query
                 }
             },
             {
@@ -548,9 +548,9 @@ const getAllTeamsForMember = asyncHandler(async (req, res) => {
             },
             {
                 "$lookup": {
-                    "from": "classmembers",
+                    "from": "teammembers",
                     "localField": "_id",
-                    "foreignField": "class",
+                    "foreignField": "team",
                     "as": "members"
                 }
             },
@@ -723,7 +723,7 @@ const getMyTeamDashboardMember = asyncHandler(async (req, res) => {
 
 
     return res.status(200).json(
-        new ApiResponse(200, { team: myTeam, members: teamInfo, leader: leader }, "Class Info fetched successfully")
+        new ApiResponse(200, { team: myTeam, members: teamInfo, leader: leader }, "Team Info fetched successfully")
     )
 
 })
@@ -984,7 +984,7 @@ const getTeamAnalytics = asyncHandler(async (req, res) => {
     const materialStarsCount = await Material.aggregate([
         {
             $match: {
-                class: myClass._id // Replace myClass._id with the actual class ID
+                team: myTeam._id 
             }
         },
         {
@@ -1028,7 +1028,7 @@ const getTeamAnalytics = asyncHandler(async (req, res) => {
     const totalMembers = await TeamMember.countDocuments({ team: myTeam._id, role: "member", status: "accepted" });
 
     return res.status(200).json(
-        new ApiResponse(200, { classFeedbacks, 
+        new ApiResponse(200, { teamFeedbacks, 
             taskFeedbacksEmotions, 
             taskStarsCount, 
             materialFeedbacksEmotions, 

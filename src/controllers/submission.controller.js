@@ -87,7 +87,7 @@ const viewSubmission = asyncHandler(async (req, res) => {
 })
 
 
-// mentor routes
+// leader routes
 
 const viewAllSubmissions = asyncHandler(async (req, res) => {
     const taskId = req.query.taskId
@@ -153,7 +153,7 @@ const markSubmission = asyncHandler(async (req, res) => {
 
     const task_found = await Team.findById(task.team)
     if (task_found.leader.toString() != userId.toString()) {
-        throw new ApiError(400, "You are not leader of this class")
+        throw new ApiError(400, "You are not leader of this team")
     }
 
     if (!submission) {
