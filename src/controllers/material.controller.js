@@ -188,8 +188,6 @@ const giveMaterialFeedback = asyncHandler( async (req, res) => {
         communication: communication,
         collaboration: collaboration,
         accountability: accountability,
-        usefulness: usefulness,
-        reliability: reliability,
         text: text,
         emotion: emotion,
         forMaterial: materialId,
